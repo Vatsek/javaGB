@@ -62,14 +62,13 @@ public class PT2 {
 
     public  static  String recursion (String str) { // перевернуть строку с помощью рекурсии.
         StringBuilder str2 = new StringBuilder(str);
-        int indx = str2.length();
         StringBuilder text = new StringBuilder();
-        if (text.length()+1 == str2.length()) {
-            return text.append(str2.charAt(indx-1)).toString();
+        for (int i = str2.length(); i!=0 ; i--) {
+            text.append(str2.charAt(i-1));
+            str2.deleteCharAt(i-1);
+            recursion(str2.toString());
         }
-        text.append(str2.charAt(indx-1));
-        str2.deleteCharAt(indx-1);
-        return recursion(str2.toString());
+        return text.toString();
     }
 
 
@@ -79,6 +78,7 @@ public class PT2 {
 
         String str1 = "Hello world";
         String str2 = "dlrow olleH";
+        String str3 = "gnikrow";
         int num1 = 3;
         int num2 = 56;
         char ch = '+';
@@ -88,6 +88,9 @@ public class PT2 {
 
 //        2. Напишите программу, чтобы проверить, являются ли две данные строки вращением друг друга (вхождение в обратном порядке).
         System.out.println(equalsStrReverse(str1, str2));
+
+//        3. *Напишите программу, чтобы перевернуть строку с помощью рекурсии.
+        System.out.println(recursion(str3));
 
 //        4. Дано два числа, например 3 и 56, необходимо составить следующие строки: 3 + 56 = 59 3 – 56 = -53 3 * 56 = 168 Используем метод StringBuilder.append().
         String exampleStr = textExample(num1, num2, ch);
@@ -99,7 +102,21 @@ public class PT2 {
 //        6. Замените символ “=” на слово “равно”. Используйте методы StringBuilder.replace().
         System.out.println(changeCharToTextReplace(exampleStr));
 
+//         7. *Сравнить время выполнения пункта 6 со строкой содержащей 10000 символов "=" средствами String и StringBuilder.
+        String str4 = "=".repeat(10000);
+        long begin = System.currentTimeMillis();
+        str4 = str4.replace("=", "равно");
+        long end = System.currentTimeMillis();
+        System.out.println(end - begin);
 
-        System.out.println(recursion(str1));
+
+        long begin1 = System.currentTimeMillis();
+        String str5 = "=".repeat(10000);
+        StringBuilder stringBuilder5 = new StringBuilder(str5);
+        for (int i = 0; i < str5.length(); i++) {
+            stringBuilder5.replace(i, i + 1,"равно");
+        }
+        long end1 = System.currentTimeMillis();
+        System.out.println(end1 - begin1);
     }
 }
